@@ -6,27 +6,32 @@ import Routes from "./Routes.jsx";
 
 // import Contact from "./Contact.jsx";
 
-import { UsersDetailsprovider,useContacts } from "./context/UsersDetails.js";
+import { UsersDetailsprovider, useContacts } from "./context/UsersDetails.js";
+import { ProductsProvider } from "./pages/products/ProductContext.jsx";
 import {
     Route,
     Switch,
     BrowserRouter as Router,
     useRouteMatch,
 } from "react-router-dom";
-import axios from "axios";
-import moment from "moment";
+
+
 
 const Main = () => {
    
    
     return (
         <>
+            
+          
             <Router>
-                <UsersDetailsprovider>
-                
-                 <Routes />
+                  <ProductsProvider>
+                    <UsersDetailsprovider>
+                        <Routes />
                 </UsersDetailsprovider>
-            </Router>
+                </ProductsProvider>
+                </Router>
+            
         </>
     );
 };

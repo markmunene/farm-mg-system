@@ -48,7 +48,7 @@ class BlogController extends Controller
 
         blog::create([
             'User_id'=> Auth::user()->id,
-            'User_name'=> Auth::user()->name,
+           
             'Title' => $request->title,
             'description' => $request->description,
             'Image_name' => $imagename,
@@ -108,8 +108,8 @@ class BlogController extends Controller
     public function destroy($id)
     {
         
-        $post = blog::where('id', $id);
-        unlink('/uploadedImages'.$post->Image_name);
+        $post = blog::where('id', $id)->first();
+        // unlink('/uploadedImages/ '.$post->Image_name);
         $post->delete();
 
        

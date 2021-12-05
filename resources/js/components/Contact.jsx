@@ -1,10 +1,62 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 
 import './contact.css'
 import { useContacts } from './context/UsersDetails';
 
 export default function Contact()
 {
+        const [name, setName] = useState("");
+        const [Email, setEmail] = useState("");
+        const [subject, setsubject] = useState("");
+        const [message, setmessage] = useState("");
+    const [errors, seterrors] = useState([]);
+    const [feedBack, setfeedBack] = useState(false);
+    
+    const renderErrorFor = (field) => {
+        if (hasErrorFor(field)) {
+            return (
+                <span className="invalid-feedback">
+                    <strong>{errors[field][0]}</strong>
+                </span>
+            );
+        }
+    };
+
+    const hasErrorFor = (field) => {
+        return !!errors[field];
+    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("mimi ni nani");
+
+        const fd = new FormData();
+
+        fd.append("name", name);
+        fd.append("Email", Email);
+        fd.append("subject", subject);
+        fd.append("message", message);
+
+        axios
+            .post("/api/contact/store", fd)
+            .then((res) => {
+                setName("");
+                setEmail("");
+                setsubject("");
+                setmessage("");
+                seterrors([]);
+                setTimeout(() => {
+                     setfeedBack(false); 
+                }, 2500);
+                setfeedBack(true)
+            })
+            .catch((err) => {
+               
+                seterrors(err.response.data.errors);
+
+                
+            });
+    };
+  
     const { user } = useContacts();
     return (
         <>
@@ -12,7 +64,7 @@ export default function Contact()
                 <div
                     className="missionHeader"
                     style={{
-                        backgroundImage: ' url("./img/avatar")',
+                        backgroundImage: ' url("./img/avatar.png")',
                     }}
                 >
                     <div className="headText ">
@@ -29,8 +81,19 @@ export default function Contact()
                     <div className="row">
                         <div className="col-md-8">
                             <div className="contactForms w-100 ">
-                                <form>
-                                    {/* firtRow d-flex */}
+                                <div
+                                    className={`${
+                                        feedBack
+                                            ? "successFeedBack m-3 d-block"
+                                            : "successFeedBack d-none"
+                                    }`}
+                                >
+                                    <p className="p-3 ">
+                                        Message sent successively
+                                    </p>
+                                </div>
+
+                                <form onSubmit={handleSubmit}>
                                     <div
                                         className={`${
                                             Object.keys(user).length === 0
@@ -45,17 +108,23 @@ export default function Contact()
                                                 </span>
                                             </div>
                                             <input
-                                                className="form-control "
+                                                className={`form-control ${
+                                                    hasErrorFor("name")
+                                                        ? "is-invalid"
+                                                        : ""
+                                                }`}
                                                 type="text"
                                                 name="names"
                                                 placeholder="names"
-                                                // value={names}
-                                                // onChange={(e) =>
-                                                //     setnames(e.target.value)
-                                                // }
+                                                value={name}
+                                                onChange={(e) =>
+                                                    setName(e.target.value)
+                                                }
                                                 required
                                             />
+                                            {renderErrorFor("name")}
                                         </div>
+
                                         <div className="input-group m-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text">
@@ -63,16 +132,21 @@ export default function Contact()
                                                 </span>
                                             </div>
                                             <input
-                                                className="form-control "
+                                                className={`form-control ${
+                                                    hasErrorFor("Email")
+                                                        ? "is-invalid"
+                                                        : ""
+                                                }`}
                                                 type="Email"
                                                 name="Email"
                                                 placeholder="Email"
-                                                // value={names}
-                                                // onChange={(e) =>
-                                                //     setnames(e.target.value)
-                                                // }
+                                                value={Email}
+                                                onChange={(e) =>
+                                                    setEmail(e.target.value)
+                                                }
                                                 required
                                             />
+                                            {renderErrorFor("Email")}
                                         </div>
                                     </div>
                                     <div className="d-flex">
@@ -83,16 +157,21 @@ export default function Contact()
                                                 </span>
                                             </div>
                                             <input
-                                                className="form-control "
+                                                className={`form-control ${
+                                                    hasErrorFor("subject")
+                                                        ? "is-invalid"
+                                                        : ""
+                                                }`}
                                                 type="text"
                                                 name="subject"
                                                 placeholder="subject"
-                                                // value={names}
-                                                // onChange={(e) =>
-                                                //     setnames(e.target.value)
-                                                // }
+                                                value={subject}
+                                                onChange={(e) =>
+                                                    setsubject(e.target.value)
+                                                }
                                                 required
                                             />
+                                            {renderErrorFor("subject")}
                                         </div>
                                     </div>
                                     <div className="d-flex ">
@@ -103,26 +182,32 @@ export default function Contact()
                                                 </span>
                                             </div>
                                             <textarea
-                                                className="form-control messageinput"
+                                                className={`form-control messageinput ${
+                                                    hasErrorFor("message")
+                                                        ? "is-invalid"
+                                                        : ""
+                                                }`}
                                                 type=""
                                                 name="message"
                                                 placeholder="message"
-                                                // value={names}
-                                                // onChange={(e) =>
-                                                //     setnames(e.target.value)
-                                                // }
+                                                value={message}
+                                                onChange={(e) =>
+                                                    setmessage(e.target.value)
+                                                }
                                                 required
                                             />
+                                            {renderErrorFor("message")}
                                         </div>
                                     </div>
                                     <div className="d-flex m-2 text-center">
-                                        <div
+                                        <button
                                             type="submit"
+                                            onClick={handleSubmit}
                                             className="contactSubmit p-1"
                                         >
                                             <i className="icofont-paper-plane m-2"></i>
                                             Send Message
-                                        </div>
+                                        </button>
                                     </div>
                                 </form>
                             </div>

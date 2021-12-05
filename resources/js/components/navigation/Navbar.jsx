@@ -4,13 +4,14 @@ import { Route, Link, Switch, BrowserRouter as Router } from "react-router-dom";
 
 // import AuthContext from "../context/AuthContext";
 import { useContacts } from "../context/UsersDetails.js";
+import { useProductsContext } from "../pages/products/ProductContext.jsx";
 import "./Navbar.css";
 
 export default function Navbar()
 {
  
-    const { user, EmptyUser } = useContacts();
-    console.log(user);
+    const { value, EmptyUser } = useContacts();
+    const { productCount } = useProductsContext();
     let emptyObj ={};
 
     return (
@@ -36,7 +37,7 @@ export default function Navbar()
                 >
                     <ul className="navbar-nav  ml-auto">
                         <li className="nav-item ">
-                            <Link className="nav-link react-link" to="#">
+                            <Link className="nav-link react-link" to="/expense">
                                 Expense-Tracker
                             </Link>
                         </li>
@@ -60,7 +61,10 @@ export default function Navbar()
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link react-link" to="#">
+                            <Link
+                                className="nav-link react-link"
+                                to="/products"
+                            >
                                 Products
                             </Link>
                         </li>
@@ -73,7 +77,7 @@ export default function Navbar()
                                 Contact Us
                             </Link>
                         </li>
-                        {Object.keys(user).length === 0 ? (
+                        {Object.keys(value).length === 0 ? (
                             <>
                                 <li className="nav-item">
                                     <Link
@@ -120,6 +124,17 @@ export default function Navbar()
                                 </li>
                             </>
                         )}
+                        <li className="nav-item cartBox">
+                            <Link
+                                className="nav-link react-link btn"
+                                to="/cart"
+                            >
+                                <i className="fa fa-shopping-cart fa-2x"></i>
+                                <div className="ItemsInCart">
+                                    {productCount}
+                                </div>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </nav>

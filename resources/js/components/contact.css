@@ -21,6 +21,18 @@
     place-items: center;
    
 }
+.contactUsBody .successFeedBack {
+display: grid;
+place-items: center;
+color: white;
+background-color: #00e673;
+border-radius: 10px;
+
+}
+.contactUsBody .successFeedBack p{
+    font-size: 18px;
+
+}
 .contactBodyHeader .divider{
     height: 4px !important;
     width: 50px;
@@ -77,4 +89,19 @@ margin-bottom: 20px;
     margin-inline: 50px !important;
    
     
+}
+.contactSubmit{
+    border: transparent;
+}
+.testingGrid{
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-gap: 10px;
+    gap: 10px;
+}
+.card1{
+    width: 250px;
+    height: 200px;
+    background-color: #00b36b;
 }

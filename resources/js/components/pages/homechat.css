@@ -75,10 +75,11 @@ margin-top: 10px !important;
      background-color: rgb(10, 10, 230);
      color: white;
      max-width: 300px;
-     border-radius: 20px;
+     border-top-left-radius: 20px;
+     border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;
+
      padding: 10px;
-
-
  }
 
  .messageBottom {
@@ -90,7 +91,9 @@ margin-top: 10px !important;
      background-color: gray;
      color: black;
      max-width: 300px;
-     border-radius: 20px;
+     border-top-left-radius: 20px;
+     border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;
      padding: 10px;
  }
 
@@ -155,3 +158,11 @@ margin-top: 10px !important;
      font-weight: bold;
      opacity: 0.8;
  }
+/* @media only screen and (max-width : 600px){
+    .contactSpace {
+       width: 200px;
+    }
+    .messageContainer{
+       width: 200px;
+    }
+} */

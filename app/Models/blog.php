@@ -23,6 +23,6 @@ class blog extends Model
     'Title', 
     'description',
     'slug',
-    'User_name'
+  
     ];
 }

@@ -21,9 +21,12 @@ Product_category
 */
     protected $fillable= ['Product_name',
      'Image_name',
-     'Price'
-    ,'Quality',
-    'quantity',
+     'Price',
+     'Product_owner'
+    , 'ProductDesc',
+    'Quantity',
+    'subTotal',
+        'ProductCount',
     'Location',
     'Rating', 
     'Product_category'];

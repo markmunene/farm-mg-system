@@ -7,33 +7,24 @@ import "./homechat.css";
 import { useContacts } from "../context/UsersDetails.js";
 
 // import AuthContext from "../context/AuthContext.js";
-
 import { io } from "socket.io-client";
-
 import axios from "axios";
-
-
-
 export default function homeChat() {
-    // importing context
-    // const auth = useContext(AuthContext);
-    const { contacts,user } = useContacts();
-    // declaring useref
+    const { contacts, user, filterSingleUserDetails } = useContacts();
     const scrollRef = useRef();
-
     const Scroll = useCallback(
         (node) => {
             node?.scrollIntoView({ behavior: "smooth" });
         },
         [],
     )
-
     // declaring react state for data management
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
     const [messageinput, setmessageinput] = useState("");
     const [farmerSearch, setfarmerSearch] = useState("");
     const [expertSearch, setExpertSearch] = useState("");
+    const [conversionName, setconversationName] = useState('');
     const [currentId, setCurrentId] = useState([]);
     const [expertCon, setepertCon] = useState([]);
     const [farmerCon, setfarmerCon] = useState([]);
@@ -319,13 +310,21 @@ export default function homeChat() {
             if (items.Conversion_id === currentConId) {
                 setNewMessages((prev) => [...prev, items]);
                 setconChange(2);
+                // getting the conesation counter part
+
             }
         });
-    
+        let name1 = filterSingleUserDetails(currentConMembers.Sender_id);
+        let name2 = filterSingleUserDetails(currentConMembers.Receiver_id);
+
+        let combinedname = name1[0].name + " & " + name2[0].name;
+  setconversationName(combinedname);
+        
         if (conChange == 2) {
             setconChange(1);
             setNewMessages([]);
         }
+
         // console.log(currentConId);
     };
 
@@ -342,8 +341,7 @@ export default function homeChat() {
                 text: messageinput,
             });
 
-            // console.log(currentId);
-
+          
             const messageData = {
                 text: messageinput,
                 Conversation_id: currentId,
@@ -381,12 +379,11 @@ export default function homeChat() {
         <div>
             <div>
                 <div className="row">
-                    {/*
-                     */}
+               
                     <div
                         className={
                             ToggleConversations
-                                ? "col-md-3 contactSpace col-sm-3"
+                                ? "col-md-3 contactSpace col-sm-5 col-xs-4"
                                 : "col-md-1.5 contactSpace OppositeContact "
                         }
                     >
@@ -434,6 +431,7 @@ export default function homeChat() {
                                 : "col-md-11 col-sm-6"
                         }
                     >
+                        <h3 className="text-center mb-2 text-info text-capitalize">Coversation Between {conversionName }</h3>
                         <div className="messageContainer">
                             <div className="messageSpace">
                                 {showinitialMessage ? (
@@ -489,7 +487,7 @@ export default function homeChat() {
                     <div
                         className={
                             ToggleConversations
-                                ? "col-md-3  contactSpace d-sm-none d-xs-none d-md-block "
+                                ? "col-md-3  contactSpace  d-sm-none d-xs-none d-md-block"
                                 : " contactSpace OppositeExpertContact d-sm-none d-md-block"
                         }
                     >

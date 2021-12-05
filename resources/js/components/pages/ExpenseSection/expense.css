@@ -1,0 +1,42 @@
+.expenseWrapper {
+    /* display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+     */
+    width: 60% !important;
+}
+.mainExpense{
+    display: flex;
+    justify-content: space-between;
+}
+
+.expenseWrapper .expenseCard {
+    background-color: #c2c2a3;
+    width: 400px !important;
+    height: 250px !important;
+    border-radius: 20px;
+
+}
+.incomewrapper{
+    width: 40%;
+
+}
+.inputFields{
+    width: 100%;
+    background-color: white;
+}
+.expenseCard p{
+    font-size: 18px;
+
+}
+
+.Values {
+    display: flex;
+
+}
+.INcomeProgress{
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border-radius: 20px;
+}

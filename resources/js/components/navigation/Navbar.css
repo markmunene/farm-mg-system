@@ -1,8 +1,8 @@
-
-*{
+* {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.nav-item{
+
+.nav-item {
     margin: 10px;
     font-size: 18px;
     font-weight: bold;
@@ -16,7 +16,7 @@
     content: "";
     height: 4px;
     width: 0%;
-   
+
     position: absolute;
     left: 0px;
     bottom: -5px;
@@ -26,75 +26,84 @@
 
 .navbar .navbar-nav li .nav-link:hover::after {
     width: 100%;
-     background: #ff751a;
+    background: #ff751a;
 }
- .loginbtn{
+
+.loginbtn {
     border-radius: 25px !important;
     background-color: orangered !important;
     padding: 5px !important;
     font-weight: bold;
     color: white !important;
     max-width: 100px;
-    
+
 }
+
 .register {
     border-radius: 25px !important;
     background-color: orangered !important;
     padding: 5px !important;
     font-weight: bold;
     color: white !important;
-max-width: 100px;
+    max-width: 100px;
 }
-.loginbtn:hover{
+
+.loginbtn:hover {
     background-color: #00e600 !important;
 }
-.register:hover{
+
+.register:hover {
     background-color: #00e600 !important;
 }
+
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
     border-top: 4px solid orangered;
-    
+
 }
-.dropdown .dropdown-menu{
+
+.dropdown .dropdown-menu {
     max-width: 230px;
-   padding-right: 9px !important;
+    padding-right: 9px !important;
 }
 
 
 
-.dropdown-item{
+.dropdown-item {
     font-weight: bold;
     transition: 0.5s ease-out;
 }
- .dropdown .dropdown-menu .dropdown-item:hover{
-     color: orangered;
-     transform: translateX(5px);
- }
-.brandLogo{
+
+.dropdown .dropdown-menu .dropdown-item:hover {
+    color: orangered;
+    transform: translateX(5px);
+}
+
+.brandLogo {
     height: 60px;
-    width :60px ;
+    width: 60px;
     border-radius: 50%;
 }
 
 
 .widgetleft {
-    position:fixed !important;
+    position: fixed !important;
     top: 35% !important;
     left: 0px !important;
     transform: translateY(35%) !important;
     -webkit-transform: translateY(35%);
-  
-    color: orangered; 
+
+    color: orangered;
     cursor: pointer !important;
     display: flex !important;
     flex-direction: column !important;
     z-index: 10;
-   
+
 }
-.widgetright{
-    position:fixed !important;
+
+.widgetright {
+    position: fixed !important;
     top: 35% !important;
     right: 0px !important;
     transform: translateY(35%) !important;
@@ -103,25 +112,27 @@ max-width: 100px;
     flex-direction: column !important;
     -webkit-transform: translateY(35%);
     z-index: 10;
-    
+
 }
-.widgetleft a{
+
+.widgetleft a {
     color: white;
     font-size: 16px;
     padding: 20px !important;
     margin: 3px !important;
-  
+
 
 }
+
 .widgetleft .fab:hover {
-  
+
     color: red !important;
-    
+
 }
 
 .widgetright a {
     color: white;
-   transition: 0.4s ease-in-out;
+    transition: 0.4s ease-in-out;
     padding: 10px !important;
     margin: 3px !important;
     background-color: rgb(255, 69, 0) !important;
@@ -133,7 +144,22 @@ max-width: 100px;
     color: white !important;
 }
 
+.cartBox {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
 
+.ItemsInCart {
+    width: 25px;
+    height: 25px;
+    background-color: var(--mainGreen);
+    color: white;
+    z-index: 3;
+    position: absolute;
+    right: 0px;
+    bottom: 24px;
 
-
-
+    border-radius: 50%;
+    font-weight: 800;
+}

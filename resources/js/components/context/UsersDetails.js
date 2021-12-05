@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback, useRef } from "react";
+import UseLocalStorage from "../UseLocalStorage";
 
 const userContext = React.createContext();
 
@@ -11,9 +12,16 @@ export function UsersDetailsprovider({ children }) {
     const [contacts, setContacts] = useState([]);
     const [Farmercontacts, setFarmerContacts] = useState([]);
     const [Expertcontacts, setExpertContacts] = useState([]);
+   
+    const [value, setValue, removeValue] = UseLocalStorage("LocalUser", []);
     const [fetching, setfetching] = useState(true);
-     const [user, setUser] = useState([]);
+    const [user, setUser] = useState([]);
+    
 
+    const filterSingleUserDetails = (id) =>
+{
+    return contacts.filter((items) => items.id === id);
+}
  
     useEffect(() => {
         if (fetching) {
@@ -22,48 +30,50 @@ export function UsersDetailsprovider({ children }) {
                     .get("/api/fetchUsers")
                     .then((res) => {
                         setContacts(res.data);
-
-                        //   setfetching(false);
-                    })
-                    
+                    })                 
                     .catch((err) => {})
             };
-
-            fetchAllusers();
-            fetchUser();
-          
-            
+            fetchAllusers();         
+             fetchUser();           
         }
         return () =>
         {
          
             setfetching(false);
         };
-    }, []);
+    }, [value]);
     const fetchUser = async () => {
         await axios
             .get("/api/user")
             .then((res) => {
                 if (res.status == 200) {
                     setUser(res.data);
+                    setValue(res.data)
+               
                 } else if (res.status == 401) {
+                     
                     setUser([]);
                 }
             })
-            .catch((error) => {
+            .catch((error) =>
+            {
+                
+                if (error.response.status == 401) {
+                    removeValue();
+                }
                 console.log(error);
             });
     };
     
 
+  
     useEffect(() => {
         filterUsers();
-        
-        
-        return () => {
-            
-        }
-    }, [contacts])
+       
+
+        return () => {};
+    }, [contacts]);
+
 
     const filterUsers = () =>
     {
@@ -81,19 +91,24 @@ export function UsersDetailsprovider({ children }) {
     {
      return   fetchUser();
     } 
-    const EmptyUser = () => {
+    const EmptyUser = () =>
+    {
+    
+        removeValue();
       return  setUser([]);
     }
 
     return (
         <userContext.Provider
             value={{
+                value,
                 Farmercontacts,
                 Expertcontacts,
                 contacts,
                 user,
                 setNewUser,
                 EmptyUser,
+                filterSingleUserDetails,
             }}
         >
             {children}
